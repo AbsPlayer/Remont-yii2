@@ -1,0 +1,50 @@
+td{
+    font-family:Tahoma;
+    font-size:11px;
+    color:#000000;
+    }
+a{
+    color:#388C3C
+    }
+.cap{
+    font-weight:bold;
+    color:#FEE803;
+    padding-top:12px;
+    font-size:12px;
+    }
+.left{
+    color:#ffffff;
+    padding-right:5px;
+    font-size:11px;
+    }
+.mid{
+    color:#000000;
+    padding-right:30px;
+    padding-top:15px;
+    }
+.mid2{
+    color:#000000;
+    padding-right:10px;
+    padding-left:15px;
+    }
+.menu{
+    text-decoration:none;
+    color:#000000;
+    }
+.cap1{
+    text-decoration:none;
+    color:#000000;
+    font-size:12px;
+    }
+input.button_edit{
+    font-size:10;
+    width:80px;
+    }
+input.button_add{
+    font-size:10;
+    width:120px;
+    }
+select.width_unit{
+    width: 80px;
+    font-size: 10;
+    }
