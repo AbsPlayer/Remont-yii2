@@ -7,115 +7,37 @@ use app\models\Units;
 use app\models\Products;
 use app\models\Grups;
 use app\models\Categories;
+use yii\filters\AccessControl;
 use yii\db\Query;
 use yii\web\UploadedFile;
+use app\components\controllers\CommonController;
 
 /**
  * Default controller for the `admin` module
  */
-class DefaultController extends AppAdminController
+class DefaultController extends CommonController
     {
 
-    public $data;
-
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    public function __construct($id, $module, $config = array())
+    public function behaviors()
         {
-        parent::__construct($id, $module, $config);
-
-        $count_offer = 2; // количество товаров в Актуальном предложении
-        $index = 0;
-        $array = [];
-        $products = Products::find()->orderBy('ProductID')->all();
-        foreach ($products as $product)
-            {
-            $array[$index] = $product->ProductID;
-            $index++;
-            }
-
-// Случайная выборка товаров для актуального предложения
-        $rand_keys = array_rand(array_flip($array), $count_offer);
-        $actualoffers = Products::find()->where(['in', 'ProductID', $rand_keys])->all();
-
-        $act_offs = [];
-        foreach ($actualoffers as $actualoffer)
-            {
-            $act_offs [] = ['ProductID' => $actualoffer->ProductID,
-                'ProductName' => $actualoffer->ProductName,
-                'ProductBigImage' => $actualoffer->ProductBigImage,
-                'GrupName' => Grups::find()->where('GrupID = :gid', [':gid' => $actualoffer->GrupID])->one()->GrupName
-            ];
-            }
-
-        $this->data = [
-            'act_offs' => $act_offs,
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['admin'],
+                'rules' => [
+                    [
+                        'allow' => TRUE,
+                        'actions' => ['login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => TRUE,
+                        'actions' => ['logout'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
-        }
-
-    public function actionIndex()
-        {
-        return $this->render('index');
-        }
-
-    public function actionContact()
-        {
-        return $this->render('@app/views/site/contact');
-        }
-
-    public function actionProduction()
-        {
-        $categories = Categories::find()->orderBy('CategoryName ASC')->all();
-
-        return $this->render('@app/views/site/production', [
-                    'categories' => $categories,
-        ]);
-        }
-
-    public function actionGrups($cid = 0)
-        {
-        $category = Categories::find()->where('CategoryID = :cid', [':cid' => $cid])->one();
-        $grups = Grups::find()->orderBy('GrupName')->where('CategoryID = :cid', [':cid' => $cid])->all();
-
-        return $this->render('@app/views/site/grups', [
-                    'category' => $category,
-                    'grups' => $grups,
-        ]);
-        }
-
-    public function actionProducts($gid = 0)
-        {
-        $grup = Grups::find()->where('GrupID = :gid', [':gid' => $gid])->one();
-        $category = Categories::find()->where('CategoryID = :cid', [':cid' => $grup->CategoryID])->one();
-        $products = Products::find()->where('GrupID = :gid', [':gid' => $gid])->all();
-
-        return $this->render('@app/views/site/products', [
-                    'category' => $category,
-                    'grup' => $grup,
-                    'products' => $products,
-        ]);
-        }
-
-    public function actionProduct($pid = 0)
-        {
-        $product = Products::find()->where('ProductID = :pid', [':pid' => $pid])->one();
-        $grup = Grups::find()->where('GrupID = :gid', [':gid' => $product->GrupID])->one();
-        $category = Categories::find()->where('CategoryID = :cid', [':cid' => $grup->CategoryID])->one();
-        $unit = Units::find()->where('UnitID = :uid', [':uid' => $product->UnitID])->one();
-
-        return $this->render('@app/views/site/product', [
-                    'category' => $category,
-                    'grup' => $grup,
-                    'product' => $product,
-                    'unit' => $unit,
-        ]);
-        }
-
-    public function actionRal()
-        {
-        return $this->render('@app/views/site/ral');
         }
 
     public function actionUnits()
