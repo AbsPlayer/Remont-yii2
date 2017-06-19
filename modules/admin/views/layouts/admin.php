@@ -236,7 +236,7 @@ AppAsset::register($this);
                                                                                 <td width="156" valign="top">
                                                                                     <img src="../images/pic07.jpg" hspace="8" vspace="10">
                                                                                     <div class="mid2" style="text-indent:5px;"><img src="../images/w.gif" align="left">Консультации<br>В телефонном режиме мы проконсультируем Вас по интересующим вопросам</div>
-                                                                                    <div align="right" style=""><a href="<?= Url::to(['/admin/contact']) ?>" title='Контакты'><img src="../images/learnmore.gif" hspace="15" vspace="10" border="0"></a></div>
+                                                                                    <div align="right" style=""><a href="<?= Url::to(['contact']) ?>" title='Контакты'><img src="../images/learnmore.gif" hspace="15" vspace="10" border="0"></a></div>
                                                                                 </td>
                                                                                 <td width="1" height="185" bgcolor="#BBBBBB"></td>
                                                                             </tr>

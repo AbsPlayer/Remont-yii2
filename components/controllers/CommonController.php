@@ -31,7 +31,7 @@ class CommonController extends Controller
      */
     public function actionIndex()
         {
-        return $this->render('index');
+        return $this->render('@app/views/site/index');
         }
 
     /**
