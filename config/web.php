@@ -63,8 +63,10 @@ $config = [
             'rules' => [
                 '' => 'site/index',
                 '<action:contact|production|grups|products|product|ral|login|logout>' => 'site/<action>',
-//                'admin/<action:contact|production|grups|products|product|ral|units|categories|grups_admin|products_admin|product_admin>' => 'admin/default/<action>',
-                'admin/<action:\w+>' => 'admin/default/<action>',
+                'admin/<action:contact|production|grups|products|product|ral|units|categories|grups_admin|products_admin|product_admin>' => 'admin/default/<action>',
+                'admin' => 'admin/default/index',
+                'admin/<action:\w+>' => 'admin/default/index',
+                '<action:\w+>' => 'site/index',
             ],
         ],
     ],
